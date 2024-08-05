@@ -1,5 +1,5 @@
 import { Router  } from "express";
-import pool from "./app/database/pool.js";
+import employeeController from "./app/controllers/userController.js";
 
 const router = Router();
 
@@ -8,5 +8,6 @@ const router = Router();
 	console.log(result);
 	res.json(result);
 }) */
+router.get("/employees", employeeController.index.bind(employeeController));
 
 export default router;
