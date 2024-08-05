@@ -39,7 +39,7 @@ class Pool {
 	 * 
 	 * @param {string} sql SQL command string. 
 	 * @param {Array} values Array of values for the SQL query.
-	 * @param {*} errorMessage Error message (optional).
+	 * @param {string} errorMessage Error message (optional).
 	 * @returns Result of the query.
 	 */
 	async connection(sql, values, errorMessage){
