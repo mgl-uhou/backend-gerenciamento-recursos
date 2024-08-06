@@ -9,5 +9,6 @@ const router = Router();
 	res.json(result);
 }) */
 router.get("/employees", employeeController.index.bind(employeeController));
+router.get("/employees/:id", employeeController.show.bind(employeeController));
 
 export default router;
