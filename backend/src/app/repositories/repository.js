@@ -17,10 +17,26 @@ class Repository{
 			return e;
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param {string} tableName Table name for the query.
+	 * @returns Result of the query.
+	 */
 	getAll(tableName){
 		const sql = `select * from ${tableName} order by id;`;
-		return this.exception(sql, [], `Couldn't get ${tableName}`);
+		return this.exception(sql, [], `Couldn't get ${tableName}.`);
+	}
+
+	/**
+	 * 
+	 * @param {string} tableName Table name for the query.
+	 * @param {number} id Id's value of the element.
+	 * @returns Result of the query.
+	 */
+	getById(tableName, id){
+		const sql = `select * from ${tableName} where id = ?;`
+		return this.exception(sql, [id], `Coudn't get ${tableName}.`)
 	}
 }
 
