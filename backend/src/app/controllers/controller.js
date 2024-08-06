@@ -11,7 +11,17 @@ class Controller{
 	async index(_req, res){
 		try {
 			const result = await repository.getAll(this.getTableName());
+			if(!result) throw new Error("Couldn't get data");
 
+			res.status(200).json(result);
+		} catch (e) {
+			res.status(400).json(e);
+		}
+	}
+
+	async show(req, res){
+		try {
+			const result = await repository.getById(this.getTableName(), req.params.id);
 			if(!result) throw new Error("Couldn't get data");
 
 			res.status(200).json(result);
