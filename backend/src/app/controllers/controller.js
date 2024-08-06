@@ -85,7 +85,18 @@ class Controller {
 			}
 			res.json({ success, error });
 		} catch (e) {
-			res.status(500).json({ message: "Error updating record", e });
+			res.status(500).json({ error: "Error updating record", e });
+		}
+	}
+
+	async delete(req, res){
+		try {
+			const result = await repository.deleteById(this.getTableName(), req.params.id);
+			if(!result) throw new Error("Couldn't delete data.");
+
+			res.status(200).json(result);
+		} catch (e) {
+			res.status(400).json({ error: e.message })
 		}
 	}
 }
