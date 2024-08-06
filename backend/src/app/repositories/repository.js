@@ -53,6 +53,11 @@ class Repository{
 
 		return this.exception(sql, values, "Couldn't insert a row into the database.");
 	}
+
+	updateRow(tableName, column, value, id){
+		const sql = `update ${tableName} set ${column} = ? where id = ?`;
+		return this.exception(sql, [value, id], `Couldn't update ${column} in ${tableName}.`);
+	}
 }
 
 const repository = new Repository();
