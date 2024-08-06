@@ -20,7 +20,7 @@ class Repository{
 	
 	/**
 	 * 
-	 * @param {string} tableName Table name for the query.
+	 * @param {string} tableName Table name in the query.
 	 * @returns Result of the query.
 	 */
 	getAll(tableName){
@@ -30,13 +30,28 @@ class Repository{
 
 	/**
 	 * 
-	 * @param {string} tableName Table name for the query.
+	 * @param {string} tableName Table name in the query.
 	 * @param {number} id Id's value of the element.
 	 * @returns Result of the query.
 	 */
 	getById(tableName, id){
 		const sql = `select * from ${tableName} where id = ?;`
 		return this.exception(sql, [id], `Coudn't get ${tableName}.`)
+	}
+
+	/**
+	 * 
+	 * @param {string} tableName Table name in the query.
+	 * @param {Array} columns Table's columns.
+	 * @param {Array} values Array of values for the SQL query. 
+	 * @returns Result of the query.
+	 */
+	insertRow(tableName, columns, values){
+		columns.shift();
+		const injection = columns.map(() => '?').join(', ');
+		const sql = `insert into ${tableName} (${columns.join(', ')}) values (${injection});`;
+
+		return this.exception(sql, values, "Couldn't insert a row into the database.");
 	}
 }
 
