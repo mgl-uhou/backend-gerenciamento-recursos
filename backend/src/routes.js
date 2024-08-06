@@ -11,5 +11,6 @@ const router = Router();
 router.get("/employees", employeeController.index.bind(employeeController));
 router.get("/employees/:id", employeeController.show.bind(employeeController));
 router.post("/employees", employeeController.store.bind(employeeController));
+router.put("/employees/:id", employeeController.update.bind(employeeController));
 
 export default router;
