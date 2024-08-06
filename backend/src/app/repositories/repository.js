@@ -65,6 +65,17 @@ class Repository{
 		const sql = `update ${tableName} set ${column} = ? where id = ?`;
 		return this.exception(sql, [value, id], `Couldn't update ${column} in ${tableName}.`);
 	}
+
+	/**
+	 * 
+	 * @param {string} tableName Table name in the query. 
+	 * @param {number} id Id's number of the element.
+	 * @returns Result of the query.
+	 */
+	deleteById(tableName, id){
+		const sql = `delete from ${tableName} where id = ?;`;
+		return this.exception(sql, [id], `Couldn't delete row from the ${tableName}.`);
+	}
 }
 
 const repository = new Repository();
