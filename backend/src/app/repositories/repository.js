@@ -47,7 +47,6 @@ class Repository{
 	 * @returns Result of the query.
 	 */
 	insertRow(tableName, columns, values){
-		columns.shift();
 		const injection = columns.map(() => '?').join(', ');
 		const sql = `insert into ${tableName} (${columns.join(', ')}) values (${injection});`;
 
