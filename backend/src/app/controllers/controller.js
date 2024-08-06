@@ -33,6 +33,7 @@ class Controller {
 		}
 	}
 
+	// TODO: Impedir que usuários comuns mexam com atributos específicos
 	async store(req, res) {
 		try {
 			const result = await repository.insertRow(
@@ -52,6 +53,7 @@ class Controller {
 		}
 	}
 
+	// TODO: Impedir que usuários comuns mexam com atributos específicos
 	async update(req, res) {
 		try {
 			const id = req.params.id;

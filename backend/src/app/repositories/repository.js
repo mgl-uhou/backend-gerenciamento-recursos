@@ -31,7 +31,7 @@ class Repository{
 	/**
 	 * 
 	 * @param {string} tableName Table name in the query.
-	 * @param {number} id Id's value of the element.
+	 * @param {number} id Id's number of the element.
 	 * @returns Result of the query.
 	 */
 	getById(tableName, id){
@@ -40,7 +40,7 @@ class Repository{
 	}
 
 	/**
-	 * 
+	 * TODO: Impedir que usuários comuns mexam com atributos específicos
 	 * @param {string} tableName Table name in the query.
 	 * @param {Array} columns Table's columns.
 	 * @param {Array} values Array of values for the SQL query. 
@@ -53,6 +53,14 @@ class Repository{
 		return this.exception(sql, values, "Couldn't insert a row into the database.");
 	}
 
+	/**
+	 * TODO: Impedir que usuários comuns mexam com atributos específicos
+	 * @param {string} tableName Table name in the query. 
+	 * @param {Array} column Array of columns names.
+	 * @param {Array} value Array of values for the SQL query.
+	 * @param {number} id Id's number of the element.
+	 * @returns 
+	 */
 	updateRow(tableName, column, value, id){
 		const sql = `update ${tableName} set ${column} = ? where id = ?`;
 		return this.exception(sql, [value, id], `Couldn't update ${column} in ${tableName}.`);
