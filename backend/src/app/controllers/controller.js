@@ -3,10 +3,10 @@ import repository from "../repositories/repository.js";
 class Controller {
 	constructor(tableName, columns) {
 		this._tableName = tableName;
-		this._columns = columns;
+		// this._columns = columns;
 	}
 	getTableName = () => this._tableName;
-	getColumns = () => this._columns;
+	// getColumns = () => this._columns;
 
 	async index(_req, res) {
 		try {
