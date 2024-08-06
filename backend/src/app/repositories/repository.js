@@ -59,7 +59,7 @@ class Repository{
 	 * @param {Array} column Array of columns names.
 	 * @param {Array} value Array of values for the SQL query.
 	 * @param {number} id Id's number of the element.
-	 * @returns 
+	 * @returns Result of the query.
 	 */
 	updateRow(tableName, column, value, id){
 		const sql = `update ${tableName} set ${column} = ? where id = ?`;
