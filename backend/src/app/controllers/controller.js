@@ -58,7 +58,6 @@ class Controller {
 		try {
 			const id = req.params.id;
 			const element = await repository.getById(this.getTableName(), id);
-			// console.log(element);
 			if (!element.length)
 				return res.status(404).json({ message: "Record not found" });
 
