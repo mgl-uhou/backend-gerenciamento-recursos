@@ -37,7 +37,7 @@ class Controller {
 		try {
 			const result = await repository.insertRow(
 				this.getTableName(),
-				this.getColumns(),
+				Object.keys(req.body),
 				Object.values(req.body)
 			);
 			if (!result)
@@ -47,7 +47,8 @@ class Controller {
 
 			res.status(201).json(result);
 		} catch (e) {
-			res.status(400).json(e);
+			console.log(e);
+			res.status(400).json({ error: e.message });
 		}
 	}
 
