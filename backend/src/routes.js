@@ -1,5 +1,6 @@
 import { Router  } from "express";
 import employeeController from "./app/controllers/userController.js";
+import { authMiddleware } from "./app/middlewares/authMiddleware.js";
 
 const router = Router();
 
@@ -10,6 +11,7 @@ const router = Router();
 }) */
 router.get("/employees", employeeController.index.bind(employeeController));
 router.get("/employees/:id", employeeController.show.bind(employeeController));
+router.get("/profile", authMiddleware, employeeController.getProfile.bind(employeeController));
 router.post("/employees", employeeController.store.bind(employeeController));
 router.post("/login", employeeController.login.bind(employeeController));
 router.put("/employees/:id", employeeController.update.bind(employeeController));
