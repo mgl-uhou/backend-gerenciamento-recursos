@@ -1,5 +1,5 @@
 import { Router } from "express";
-import employeeController from "./app/controllers/userController.js";
+import employeeController from "./app/controllers/employeeController.js";
 import { authMiddleware } from "./app/middlewares/authMiddleware.js";
 
 const router = Router();
