@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 dotenv.config();
 
-class EmployeeController extends Controller{
+class EmployeesController extends Controller{
 	constructor(tableName){
 		super(tableName);
 	}
@@ -155,7 +155,7 @@ class EmployeeController extends Controller{
 	}
 }
 
-const employeeController = new EmployeeController("employees", [
+const employeesController = new EmployeesController("employees", [
 	"id", 
 	"firstName",
 	"lastName",
@@ -168,4 +168,4 @@ const employeeController = new EmployeeController("employees", [
 	"departmentId",
 ]);
 
-export default employeeController;
+export default employeesController;
