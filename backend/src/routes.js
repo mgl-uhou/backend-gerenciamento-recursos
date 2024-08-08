@@ -1,4 +1,4 @@
-import { Router  } from "express";
+import { Router } from "express";
 import employeeController from "./app/controllers/userController.js";
 import { authMiddleware } from "./app/middlewares/authMiddleware.js";
 
