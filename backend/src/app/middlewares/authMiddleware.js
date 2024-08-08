@@ -21,7 +21,7 @@ export const authMiddleware = async (req, res, next) => {
 
 			const { password: _, ...loggedUser} = user;
 
-			req.user = loggedUser;
+			req.employee = loggedUser;
 
 			next();
 		} catch (e) {
