@@ -99,6 +99,7 @@ class Controller {
 			if(!req.employee.isAdmin) return this.unauthorized(res);
 			const result = await repository.deleteById(this.getTableName(), req.params.id);
 			if(!result) throw new Error("Couldn't delete data.");
+			if(!result.affectedRows) return res.status(404).json({ error: "Data not exists." });
 
 			res.status(200).json(result);
 		} catch (e) {
