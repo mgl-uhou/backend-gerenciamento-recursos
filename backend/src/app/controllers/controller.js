@@ -30,6 +30,9 @@ class Controller {
 			);
 			if (!result) throw new Error("Couldn't get data");
 
+			if(result.length === 0) 
+				return res.status(404).json({ message: "Record not exists" });
+
 			res.status(200).json(result);
 		} catch (e) {
 			res.status(400).json(e);
