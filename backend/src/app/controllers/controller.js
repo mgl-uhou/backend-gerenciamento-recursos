@@ -11,7 +11,7 @@ class Controller {
 	unauthorized = res => res.status(401).json({ error: "Unauthorized." });
 	async index(req, res) {
 		try {
-			if(!req.employee.isAdmin) this.unauthorized();
+			if(!req.employee.isAdmin) return this.unauthorized(res);
 			const result = await repository.getAll(this.getTableName());
 			if (!result) throw new Error("Couldn't get data");
 
@@ -23,7 +23,7 @@ class Controller {
 
 	async show(req, res) {
 		try {
-			if(!req.employee.isAdmin) this.unauthorized();
+			if(!req.employee.isAdmin) return this.unauthorized(res);
 			const result = await repository.getById(
 				this.getTableName(),
 				req.params.id
@@ -38,7 +38,7 @@ class Controller {
 
 	async store(req, res) {
 		try {
-			if(req.employee.isAdmin) this.unauthorized();
+			if(!req.employee.isAdmin) return this.unauthorized(res);
 			const result = await repository.insertRow(
 				this.getTableName(),
 				Object.keys(req.body),
@@ -58,7 +58,7 @@ class Controller {
 
 	async update(req, res) {
 		try {
-			if(req.employee.isAdmin) this.unauthorized();
+			if(!req.employee.isAdmin) return this.unauthorized(res);
 			const id = req.params.id;
 			const element = await repository.getById(this.getTableName(), id);
 			if (!element.length)
@@ -78,7 +78,6 @@ class Controller {
 						values[index],
 						id
 					);
-					console.log(result);
 					
 					if (!result) throw new Error(`Could't update ${column}`);
 					success[column] = result;
@@ -94,7 +93,7 @@ class Controller {
 
 	async delete(req, res){
 		try {
-			if(req.employee.isAdmin) this.unauthorized();
+			if(!req.employee.isAdmin) return this.unauthorized(res);
 			const result = await repository.deleteById(this.getTableName(), req.params.id);
 			if(!result) throw new Error("Couldn't delete data.");
 
