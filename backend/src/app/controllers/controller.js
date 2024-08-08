@@ -8,8 +8,10 @@ class Controller {
 	getTableName = () => this._tableName;
 	// getColumns = () => this._columns;
 
-	async index(_req, res) {
+	unauthorized = res => res.status(401).json({ error: "Unauthorized." });
+	async index(req, res) {
 		try {
+			if(!req.employee.isAdmin) this.unauthorized();
 			const result = await repository.getAll(this.getTableName());
 			if (!result) throw new Error("Couldn't get data");
 
@@ -21,6 +23,7 @@ class Controller {
 
 	async show(req, res) {
 		try {
+			if(!req.employee.isAdmin) this.unauthorized();
 			const result = await repository.getById(
 				this.getTableName(),
 				req.params.id
@@ -33,9 +36,9 @@ class Controller {
 		}
 	}
 
-	// TODO: Impedir que usuários comuns mexam com atributos específicos
 	async store(req, res) {
 		try {
+			if(req.employee.isAdmin) this.unauthorized();
 			const result = await repository.insertRow(
 				this.getTableName(),
 				Object.keys(req.body),
@@ -53,9 +56,9 @@ class Controller {
 		}
 	}
 
-	// TODO: Impedir que usuários comuns mexam com atributos específicos
 	async update(req, res) {
 		try {
+			if(req.employee.isAdmin) this.unauthorized();
 			const id = req.params.id;
 			const element = await repository.getById(this.getTableName(), id);
 			if (!element.length)
@@ -91,6 +94,7 @@ class Controller {
 
 	async delete(req, res){
 		try {
+			if(req.employee.isAdmin) this.unauthorized();
 			const result = await repository.deleteById(this.getTableName(), req.params.id);
 			if(!result) throw new Error("Couldn't delete data.");
 
