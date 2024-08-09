@@ -35,10 +35,10 @@ router.post("/location-departments", authMiddleware, locationDepartmentsControll
 router.put("/location-departments/:id", authMiddleware, locationDepartmentsController.update.bind(locationDepartmentsController));
 router.delete("/location-departments/:id", authMiddleware, locationDepartmentsController.delete.bind(locationDepartmentsController));
 
-router.get("/assignment", authMiddleware, assignmentsController.index.bind(assignmentsController));
-router.get("/assignment/:id", authMiddleware, assignmentsController.show.bind(assignmentsController));
-router.post("/assignment", authMiddleware, assignmentsController.store.bind(assignmentsController));
-router.put("/assignment/:id", authMiddleware, assignmentsController.update.bind(assignmentsController));
-router.delete("/assignment/:id", authMiddleware, assignmentsController.delete.bind(assignmentsController));
+router.get("/assignments", authMiddleware, assignmentsController.index.bind(assignmentsController));
+router.get("/assignments/:id", authMiddleware, assignmentsController.show.bind(assignmentsController));
+router.post("/assignments", authMiddleware, assignmentsController.store.bind(assignmentsController));
+router.put("/assignments/:id", authMiddleware, assignmentsController.update.bind(assignmentsController));
+router.delete("/assignments/:id", authMiddleware, assignmentsController.delete.bind(assignmentsController));
 
 export default router;
