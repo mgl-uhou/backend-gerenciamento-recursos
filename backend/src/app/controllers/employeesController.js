@@ -135,7 +135,7 @@ class EmployeesController extends Controller{
 			const { error, success } = await this.update(columns, values, id);
 			res.json({ success, error });
 		} catch (e) {
-			res.status(500).json({ error: "Error updating record", e });
+			res.status(500).json({ error: "Error updating record", message: e.message });
 		}
 	}
 
@@ -156,7 +156,7 @@ class EmployeesController extends Controller{
 			const { error, success } = await this.update(columns, values, recordId);
 			res.json({ message: "Password  changed only by the employee on common route.", success, error });
 		} catch (e){
-			res.status(400).json({ error: "Error updating record", e });	
+			res.status(400).json({ error: "Error updating record", message: e.message });	
 		}
 	}
 }
