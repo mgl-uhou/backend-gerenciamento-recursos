@@ -1,4 +1,4 @@
-import repository from "../repositories/repository.js";
+import { repository } from "../repositories/repository.js";
 
 class Controller {
 	constructor(tableName, columns) {

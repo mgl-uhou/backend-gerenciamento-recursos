@@ -1,9 +1,8 @@
-import repository from "../repositories/repository.js";
+import { repository } from "../repositories/repository.js";
 import Controller from "./controller.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { authMiddleware } from "../middlewares/authMiddleware.js";
 dotenv.config();
 
 class EmployeesController extends Controller{

@@ -80,4 +80,4 @@ class Repository{
 
 const repository = new Repository();
 
-export default repository;
+export { Repository, repository };
