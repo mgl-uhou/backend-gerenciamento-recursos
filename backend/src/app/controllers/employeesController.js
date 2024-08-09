@@ -7,8 +7,8 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 dotenv.config();
 
 class EmployeesController extends Controller{
-	constructor(tableName){
-		super(tableName);
+	constructor(tableName, columns){
+		super(tableName, columns);
 	}
 
 	async store(req, res) {
@@ -24,6 +24,8 @@ class EmployeesController extends Controller{
 					attributes: [ 'vacationDays', 'available', 'isAdmin', 'departmentId', 'locationId' ] 
 				})
 			}
+
+			this.attributeNotExists(req.body);
 
 			const hashPassword = await bcrypt.hash(password, 10);
 			req.body.password = hashPassword;
@@ -122,6 +124,8 @@ class EmployeesController extends Controller{
 				})
 			}
 
+			this.attributeNotExists(req.body);
+
 			if(req.body.password) 
 				req.body.password = await bcrypt.hash(req.body.password, 10);
 
@@ -145,6 +149,8 @@ class EmployeesController extends Controller{
 
 			if(req.body.password) delete req.body.password;
 
+			this.attributeNotExists(req.body);
+			
 			const columns = Object.keys(req.body);
 			const values = Object.values(req.body);
 			const { error, success } = await this.update(columns, values, recordId);
@@ -156,16 +162,17 @@ class EmployeesController extends Controller{
 }
 
 const employeesController = new EmployeesController("employees", [
-	"id", 
 	"firstName",
 	"lastName",
+	"birthDate",
 	"email",
 	"password",
-	"vacationDays",
+	"vacationStart",
+	"vacationEnd",
 	"available",
 	"position",
 	"isAdmin", 
-	"departmentId",
+	"assignmentId",
 ]);
 
 export default employeesController;

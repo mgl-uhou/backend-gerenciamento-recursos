@@ -3,12 +3,21 @@ import repository from "../repositories/repository.js";
 class Controller {
 	constructor(tableName, columns) {
 		this._tableName = tableName;
-		// this._columns = columns;
+		this._columns = columns;
 	}
 	getTableName = () => this._tableName;
-	// getColumns = () => this._columns;
-
+	getColumns = () => this._columns;
+	
 	unauthorized = res => res.status(401).json({ error: "Unauthorized." });
+
+	attributeNotExists(body) {
+		Object.keys(body).forEach(key => {
+			if (!this.getColumns().includes(key)) {
+				throw new Error(`Invalid columns: ${key}`);
+			}
+		});
+	}
+
 	async index(req, res) {
 		try {
 			if(!req.employee.isAdmin) return this.unauthorized(res);
@@ -42,6 +51,9 @@ class Controller {
 	async store(req, res) {
 		try {
 			if(!req.employee.isAdmin) return this.unauthorized(res);
+
+			this.attributeNotExists(req.body);
+
 			const result = await repository.insertRow(
 				this.getTableName(),
 				Object.keys(req.body),
@@ -54,7 +66,6 @@ class Controller {
 
 			res.status(201).json(result);
 		} catch (e) {
-			console.log(e);
 			res.status(400).json({ error: e.message });
 		}
 	}
@@ -66,11 +77,13 @@ class Controller {
 			const element = await repository.getById(this.getTableName(), id);
 			if (!element.length)
 				return res.status(404).json({ message: "Record not found" });
-
+			
 			const columns = Object.keys(req.body);
 			const values = Object.values(req.body);
 			const error = {};
 			const success = {};
+
+			this.attributeNotExists(req.body);
 
 			for (const [index, column] of columns.entries()) {
 				// column is the value
@@ -90,7 +103,7 @@ class Controller {
 			}
 			res.json({ success, error });
 		} catch (e) {
-			res.status(500).json({ error: "Error updating record", e });
+			res.status(500).json({ error: "Error updating record", message: e.message });
 		}
 	}
 
