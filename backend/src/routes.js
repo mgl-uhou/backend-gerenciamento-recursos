@@ -5,12 +5,16 @@ import { locationsController } from "./app/controllers/locationsController.js";
 import { locationDepartmentsController } from "./app/controllers/locationDepartmentsController.js";
 import { assignmentsController } from "./app/controllers/assignmentsController.js";
 import { authMiddleware } from "./app/middlewares/authMiddleware.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json" assert { type: 'json' };
 
 const router = Router();
 
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerDocument));
+
 router.get("/employees",authMiddleware, employeesController.index.bind(employeesController));
 router.get("/employees/:id", authMiddleware, employeesController.show.bind(employeesController));
-router.get("/profile", authMiddleware, employeesController.getProfile.bind(employeesController));
 router.post("/employees", employeesController.store.bind(employeesController));
 router.post("/login", employeesController.login.bind(employeesController));
 router.put("/employees", authMiddleware, employeesController.updateSelf.bind(employeesController));
