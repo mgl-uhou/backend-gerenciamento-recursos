@@ -18,12 +18,19 @@ class Controller {
 		});
 	}
 
+	removePassword(result){
+		result.forEach(element => {
+			delete element.password;
+		})
+	}
+
 	async index(req, res) {
 		try {
 			if(!req.employee.isAdmin) return this.unauthorized(res);
 			const result = await repository.getAll(this.getTableName());
 			if (!result) throw new Error("Couldn't get data");
 
+			this.removePassword(result);
 			res.status(200).json(result);
 		} catch (e) {
 			res.status(400).json(e);
@@ -42,6 +49,7 @@ class Controller {
 			if(result.length === 0) 
 				return res.status(404).json({ message: "Record not exists" });
 
+			this.removePassword(result);
 			res.status(200).json(result);
 		} catch (e) {
 			res.status(400).json(e);
