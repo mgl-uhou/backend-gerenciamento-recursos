@@ -16,6 +16,7 @@ router.post("/login", employeesController.login.bind(employeesController));
 router.put("/employees", authMiddleware, employeesController.updateSelf.bind(employeesController));
 router.put("/employees/:id", authMiddleware, employeesController.updateByAdmin.bind(employeesController));
 router.delete("/employees/:id", authMiddleware, employeesController.delete.bind(employeesController));
+router.get("/show-assignments", authMiddleware, employeesController.showAssignments.bind(employeesController));
 
 router.get("/departments", authMiddleware, departmentsController.index.bind(departmentsController));
 router.get("/departments/:id", authMiddleware, departmentsController.show.bind(departmentsController));

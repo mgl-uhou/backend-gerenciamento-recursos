@@ -3,6 +3,7 @@ import Controller from "./controller.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { employeesRepository } from "../repositories/employeesRepository.js";
 dotenv.config();
 
 class EmployeesController extends Controller{
@@ -156,6 +157,17 @@ class EmployeesController extends Controller{
 			res.json({ message: "Password  changed only by the employee on common route.", success, error });
 		} catch (e){
 			res.status(400).json({ error: "Error updating record", message: e.message });	
+		}
+	}
+
+	async showAssignments(req, res){
+		try{
+			const employeeId = req.employee.id;
+			const result = await employeesRepository.getAssignments(employeeId);
+
+			res.status(200).json(result);
+		}catch(e){
+			res.status(400).json({ error: e.message });
 		}
 	}
 }
