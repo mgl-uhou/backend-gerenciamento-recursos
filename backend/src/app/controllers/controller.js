@@ -50,7 +50,7 @@ class Controller {
 				return res.status(404).json({ message: "Record not exists" });
 
 			this.removePassword(result);
-			res.status(200).json(result);
+			res.status(200).json(result[0]);
 		} catch (e) {
 			res.status(400).json(e);
 		}
