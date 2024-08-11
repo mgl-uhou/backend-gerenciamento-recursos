@@ -71,6 +71,10 @@ class EmployeesController extends Controller{
 		}
 	}
 
+	async getProfile(req, res){
+		res.status(200).json(req.employee);
+	}
+
 	/**
 	 * 
 	 * @param {Array} columns Array of column names.
