@@ -15,6 +15,7 @@ router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 router.get("/employees",authMiddleware, employeesController.index.bind(employeesController));
 router.get("/employees/:id", authMiddleware, employeesController.show.bind(employeesController));
+router.get("/profile", authMiddleware, employeesController.getProfile.bind(employeesController));
 router.post("/employees", employeesController.store.bind(employeesController));
 router.post("/login", employeesController.login.bind(employeesController));
 router.put("/employees", authMiddleware, employeesController.updateSelf.bind(employeesController));
