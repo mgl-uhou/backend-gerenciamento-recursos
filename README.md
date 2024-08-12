@@ -25,7 +25,7 @@ Sistema que gerencia as atribuições e alocações dos funcionários de uma det
 
 **Requisitos:** Servidor MySQL como Wampserver ou XAMPP e NodeJS.
 
-1. Na pasta raiz, navegue até a pasta `backend` e execute no terminal o comando: 
+1. Após baixar e extrair o arquivo, na pasta raiz, navegue até a pasta `backend` e execute no terminal o comando: 
 	```powershell
 	npm install
 	```
