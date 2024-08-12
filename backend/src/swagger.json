@@ -898,17 +898,26 @@
 				}
 			}
 		},
-		"/location-departments/{id}": {
+		"/location-departments/{locationId}/{departmentId}": {
 			"get": {
 				"summary": "Listagem da tabela de relacionamento de Locations e Departments.",
-				"description": "Rota que mostra todos os registros da tabela de relacionamento de Locations e Department. Disponível somente para administradores.",
+				"description": "Rota que mostra o registro com base em seus atributos identificadores do relacionamento de Locations e Department. Disponível somente para administradores.",
 				"tags": [ "Location-Departments" ],
 				"security": [{ "bearerAuth": [] }],
 				"parameters": [
 					{
-						"name": "id",
+						"name": "locationId",
 						"in": "path",
-						"description": "ID do local que será mostrado.",
+						"description": "locationId do registro.",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"name": "departmentId",
+						"in": "path",
+						"description": "departmentId do registro.",
 						"required": true,
 						"schema": {
 							"type": "integer"
@@ -931,6 +940,125 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/LocationDepartment"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"summary": "Criação de novo relacionamento de locations e department.",
+				"description": "Rota que atualiza as informações do relacionamento entre locations e departments.",
+				"tags": [ "Location-Departments" ],
+				"security": [{ "bearerAuth": [] }],
+				"parameters": [
+					{
+						"name": "locationId",
+						"in": "path",
+						"description": "locationId do registro.",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"name": "departmentId",
+						"in": "path",
+						"description": "departmentId do registro.",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"minCapacity": {
+										"type": "integer"
+									},
+									"maxCapacity": {
+										"type": "integer"
+									}
+								}
+							},
+							"examples": {
+								"example": {
+									"value": {
+										"minCapacity": 11,
+										"maxCapacity": 13
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"401": {
+						"description": "Unauthorized."
+					},
+					"404": {
+						"description": "Record not exists."
+					}, 
+					"500": {
+						"description": "Error updating record."
+					}, 
+					"200": {
+						"description": "Ok.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Updated"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"summary": "Deleção de atribuição por ID.",
+				"description": "Rota que trata de deletar o registro na tabela location-departments de acordo com seus atributos identificadores.",
+				"tags": [ "Location-Departments" ],
+				"security": [{ "bearerAuth": [] }],
+				"parameters": [
+					{
+						"name": "locationId",
+						"in": "path",
+						"description": "locationId do registro.",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"name": "departmentId",
+						"in": "path",
+						"description": "departmentId do registro.",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"400": {
+						"description": "Couldn't delete record."
+					},
+					"401": {
+						"description": "Unauthorized."
+					},
+					"404": {
+						"description": "Record not exists."
+					},
+					"200": {
+						"description": "Ok.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Default"
 								}
 							}
 						}
